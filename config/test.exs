@@ -39,5 +39,5 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
 
-  # behuzom az eredetit .secret
-  import_config "test.secret.exs"
+# behuzom az eredetit .secret
+import_config "test.secret.exs"

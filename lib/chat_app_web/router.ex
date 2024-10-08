@@ -21,6 +21,8 @@ defmodule ChatAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    # itt adom hozza a path-eket a weboldal eleresehez
+    live "/light", LightLive
   end
 
   # Other scopes may use custom stacks.
