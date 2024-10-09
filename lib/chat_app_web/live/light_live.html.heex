@@ -1,0 +1,28 @@
+<h1>Front Proch Light</h1>
+<div id="light">
+  <div class="bg-gray-400 rounded-md overflow-hidden">
+    <span
+      style={"width: #{@brightness}%"}
+      class="bg-yellow-400 py-2 inline-block text-center transition-all duration-1000"
+    >
+      <%= @brightness %>%
+    </span>
+  </div>
+  <div class="flex justify-center mt-10 gap-5">
+    <button class="bg-gray-200 p-2 rounded-md hover:bg-gray-300 transition" phx-click="off">
+      <.icon name="hero-light-bulb-solid" class="w-10 h-10" />
+    </button>
+    <button class="bg-gray-200 p-2 rounded-md hover:bg-gray-300 transition" phx-click="down">
+      <.icon name="hero-chevron-down" class="w-10 h-10" />
+    </button>
+    <button class="bg-gray-200 p-2 rounded-md hover:bg-gray-300 transition" phx-click="rnd">
+      <.icon name="hero-question-mark-circle" class="w-10 h-10 text-red-400" />
+    </button>
+    <button class="bg-gray-200 p-2 rounded-md hover:bg-gray-300 transition" phx-click="up">
+      <.icon name="hero-chevron-up" class="w-10 h-10" />
+    </button>
+    <button class="bg-gray-200 p-2 rounded-md hover:bg-gray-300 transition" phx-click="on">
+      <.icon name="hero-light-bulb" class="w-10 h-10 text-orange-400" />
+    </button>
+  </div>
+</div>
