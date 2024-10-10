@@ -1,0 +1,15 @@
+<h1>Welcome</h1>
+<.simple_form for={@form} phx-change="search">
+  <.input field={@form[:name]} label="Input" />
+  <%!-- <.input field={@form[:username]} label="Search in database" /> --%>
+  <%!-- <:actions>
+    <.button>Search</.button>
+  </:actions> --%>
+</.simple_form>
+
+<.table id="users" rows={@searched_list}>
+  <:col :let={user} label="name"><%= user.name %></:col>
+  <:col :let={user} label="age"><%= user.age %></:col>
+  <:col :let={user} label="date of birth"><%= user.date_of_birth %></:col>
+</.table>
+<%!-- nem kell az end ele az egyenlo --%>

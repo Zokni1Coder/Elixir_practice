@@ -1,4 +1,5 @@
 defmodule ChatAppWeb.Router do
+  alias ChatAppWeb.LightLive
   use ChatAppWeb, :router
 
   import ChatAppWeb.UserAuth
@@ -23,6 +24,7 @@ defmodule ChatAppWeb.Router do
     get "/", PageController, :home
     # itt adom hozza a path-eket a weboldal eleresehez
     live "/light", LightLive
+    live "/searching", SearchingLive
   end
 
   # Other scopes may use custom stacks.
