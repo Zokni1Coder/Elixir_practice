@@ -14,23 +14,20 @@ defmodule ChatAppWeb.SearchingLive do
         searched_list: [],
         form: to_form(%{}, as: "search")
       )
-
     {:ok, socket}
   end
 
-  def handle_event("search", %{"search" => %{"name" => ""}}, socket) do
-    socket = assign(socket, searched_list: [])
-    {:noreply, socket}
-  end
-
-  def handle_event("search", params, socket) do
+  def handle_event("search", %{"search" => %{"name" => name}}, socket) do
     # IO.inspect(params, label: "params")
     # IO.inspect(params["search"], label: "params[\"search\"]")
-    socket =
-      assign(socket,
-        searched_list:
-          Enum.filter(socket.assigns.list, &String.contains?(&1.name, params["search"]["name"]))
-      )
+    searched_list =
+      if String.length(name) < 3 do
+        []
+      else
+        Enum.filter(socket.assigns.list, &String.contains?(&1.name, name))
+      end
+
+    socket = assign(socket, searched_list: searched_list)
 
     IO.inspect(socket.assigns.searched_list)
     {:noreply, socket}
