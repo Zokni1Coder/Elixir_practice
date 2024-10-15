@@ -20,15 +20,34 @@ defmodule ChatAppWeb.PaginationLive do
   end
 
   def handle_params(params, _uri, socket) do
-    # IO.inspect(params)
-    page = String.to_integer(params["page"] || "1")
+    # IO.inspect(socket)
+    page_from_params = String.to_integer(params["page"] || "1")
+    page = maybe_set_page(page_from_params)
 
-    paginated_list =
-      @list
-      |> Enum.sort(&(Date.compare(&1.date_of_birth, &2.date_of_birth) == :lt))
-      |> Enum.slice(page * @default_limit - @default_limit, @default_limit)
+    socket =
+      if page_from_params == page do
+        paginated_list =
+          @list
+          |> Enum.sort(&(Date.compare(&1.date_of_birth, &2.date_of_birth) == :lt))
+          |> Enum.slice(page * @default_limit - @default_limit, @default_limit)
 
-    socket = assign(socket, paginated_list: paginated_list)
+        assign(socket, paginated_list: paginated_list, page: page)
+      else
+        push_patch(socket, to: ~p"/pagination?#{%{page: page}}")
+      end
+
     {:noreply, socket}
+  end
+
+  def maybe_set_page(page) when page < 1, do: 1
+
+  def maybe_set_page(page) do
+    max_page = (length(@list) / @default_limit) |> Float.ceil() |> round()
+
+    if page > max_page do
+      max_page
+    else
+      page
+    end
   end
 end

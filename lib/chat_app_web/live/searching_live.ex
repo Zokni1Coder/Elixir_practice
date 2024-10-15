@@ -14,6 +14,7 @@ defmodule ChatAppWeb.SearchingLive do
         searched_list: [],
         form: to_form(%{}, as: "search")
       )
+
     {:ok, socket}
   end
 

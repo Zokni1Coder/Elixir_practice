@@ -2,3 +2,21 @@
   <:col :let={user} label="name"><%= user.name %></:col>
   <:col :let={user} label="date of birth"><%= user.date_of_birth %></:col>
 </.table>
+<ul class="mt-5 flex justify-center gap-3">
+  <li>
+    <.link
+      patch={~p"/pagination?#{%{page: maybe_set_page(@page - 1)}}"}
+      class="bg-gray-200 inline-block rounded-md transition-colors hover:bg-gray-300 px-3 py-1.5"
+    >
+      <.icon name="hero-chevron-left" />
+    </.link>
+  </li>
+  <li>
+    <.link
+      patch={~p"/pagination?#{%{page: maybe_set_page(@page + 1)}}"}
+      class="bg-gray-200 inline-block rounded-md transition-colors hover:bg-gray-300 px-3 py-1.5"
+    >
+      <.icon name="hero-chevron-right" />
+    </.link>
+  </li>
+</ul>
