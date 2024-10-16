@@ -22,27 +22,40 @@ defmodule ChatAppWeb.PaginationLive do
   def handle_params(params, _uri, socket) do
     # IO.inspect(socket)
     page_from_params = String.to_integer(params["page"] || "1")
-    page = maybe_set_page(page_from_params)
+    limit_from_params = (params["limit"] && String.to_integer(params["limit"])) || @default_limit
+    page = maybe_set_page(page_from_params, limit_from_params)
 
     socket =
       if page_from_params == page do
         paginated_list =
           @list
           |> Enum.sort(&(Date.compare(&1.date_of_birth, &2.date_of_birth) == :lt))
-          |> Enum.slice(page * @default_limit - @default_limit, @default_limit)
+          |> Enum.slice(page * limit_from_params - limit_from_params, limit_from_params)
 
-        assign(socket, paginated_list: paginated_list, page: page)
+        assign(socket,
+          paginated_list: paginated_list,
+          page: page,
+          limit: limit_from_params,
+          form: to_form(%{"limit" => limit_from_params}, as: "set_limiter"),
+          max_page: max_page(limit_from_params)
+        )
       else
-        push_patch(socket, to: ~p"/pagination?#{%{page: page}}")
+        push_patch(socket, to: ~p"/pagination?#{%{page: page, limit: limit_from_params}}")
       end
 
     {:noreply, socket}
   end
 
-  def maybe_set_page(page) when page < 1, do: 1
+  def handle_event("set_limiter", %{"set_limiter" => %{"limit" => limit}}, socket) do
+    # IO.inspect(socket)
+    socket = push_patch(socket, to: ~p"/pagination?#{%{page: socket.assigns.page, limit: limit}}")
+    {:noreply, socket}
+  end
 
-  def maybe_set_page(page) do
-    max_page = (length(@list) / @default_limit) |> Float.ceil() |> round()
+  def maybe_set_page(page, _limit) when page < 1, do: 1
+
+  def maybe_set_page(page, limit) do
+    max_page = max_page(limit)
 
     if page > max_page do
       max_page
@@ -50,4 +63,6 @@ defmodule ChatAppWeb.PaginationLive do
       page
     end
   end
+
+  defp max_page(limit), do: (length(@list) / limit) |> Float.ceil() |> round()
 end

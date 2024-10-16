@@ -2,21 +2,48 @@
   <:col :let={user} label="name"><%= user.name %></:col>
   <:col :let={user} label="date of birth"><%= user.date_of_birth %></:col>
 </.table>
-<ul class="mt-5 flex justify-center gap-3">
+<ul class="mt-5 flex justify-center gap-3 place-items-stretch">
   <li>
     <.link
-      patch={~p"/pagination?#{%{page: maybe_set_page(@page - 1)}}"}
+      patch={~p"/pagination?#{%{page: maybe_set_page(@page - 1, @limit), limit: @limit}}"}
       class="bg-gray-200 inline-block rounded-md transition-colors hover:bg-gray-300 px-3 py-1.5"
     >
       <.icon name="hero-chevron-left" />
     </.link>
   </li>
+  <%= for page <- 1..@max_page do %>
+    <li class="flex">
+      <.link
+        patch={~p"/pagination?#{%{page: page, limit: @limit}}"}
+        class={[
+          "flex items-center rounded-md transition-colors px-3 py-1.5",
+          if(@page == page,
+            do: "bg-blue-400 text-white hover:bg-blue-300",
+            else: "bg-gray-200 hover:bg-gray-300"
+          )
+        ]}
+      >
+        <%= page %>
+      </.link>
+    </li>
+  <% end %>
   <li>
     <.link
-      patch={~p"/pagination?#{%{page: maybe_set_page(@page + 1)}}"}
+      patch={~p"/pagination?#{%{page: maybe_set_page(@page + 1, @limit), limit: @limit}}"}
       class="bg-gray-200 inline-block rounded-md transition-colors hover:bg-gray-300 px-3 py-1.5"
     >
       <.icon name="hero-chevron-right" />
     </.link>
   </li>
 </ul>
+<.simple_form for={@form} phx-change="set_limiter">
+  <div class="flex items-center gap-3">
+    <span>Limit:</span>
+    <.input
+      field={@form[:limit]}
+      type="select"
+      options={["3": "3", "6": "6", "9": "9"]}
+      class="!w-auto !mt-0"
+    />
+  </div>
+</.simple_form>
