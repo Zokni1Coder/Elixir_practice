@@ -1,33 +1,16 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div>
-    <ul>
-      <li>
-        <.link
-          navigate={~p"/searching"}
-          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-        >
-          Kereső
-        </.link>
-      </li>
-      <li>
-        <.link
-          navigate={~p"/light"}
-          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-        >
-          Lámpa kapcsoló
-        </.link>
-      </li>
-      <li>
-        <.link
-          navigate={~p"/pagination"}
-          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
-        >
-          Paginator + Rendezés
-        </.link>
-      </li>
-    </ul>
-  </div>
-</header>
+<.custom_header
+  current_user={@current_user}
+  items={[
+    %{path: ~p"/searching", label: "Kereső"},
+    %{path: ~p"/light", label: "Lámpa kapcsoló"},
+    %{path: ~p"/pagination", label: "Paginator + Rendezés"},
+    %{path: ~p"/users/settings", label: "Settings", show: @current_user},
+    %{path: ~p"/users/log_out", label: "Log out", show: @current_user},
+    %{path: ~p"/users/register", label: "Register", show: !@current_user},
+    %{path: ~p"/users/log_in", label: "Log in", show: !@current_user}
+  ]}
+/>
+
 <main class="px-4 py-20 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />

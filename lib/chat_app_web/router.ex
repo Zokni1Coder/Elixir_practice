@@ -18,13 +18,17 @@ defmodule ChatAppWeb.Router do
   end
 
   scope "/", ChatAppWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
     get "/", PageController, :home
-    # itt adom hozza a path-eket a weboldal eleresehez
-    live "/searching", SearchingLive
-    live "/light", LightLive
-    live "/pagination", PaginationLive
+
+    live_session :mount_current_user,
+      on_mount: [{ChatAppWeb.UserAuth, :mount_current_user}] do
+      # itt adom hozza a path-eket a weboldal eleresehez
+      live "/searching", SearchingLive
+      live "/light", LightLive
+      live "/pagination", PaginationLive
+    end
   end
 
   # Other scopes may use custom stacks.

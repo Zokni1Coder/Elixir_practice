@@ -86,6 +86,7 @@ defmodule ChatAppWeb do
       # Core UI components and translation
       import ChatAppWeb.CoreComponents
       import ChatAppWeb.Gettext
+      import ChatAppWeb.CustomComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
