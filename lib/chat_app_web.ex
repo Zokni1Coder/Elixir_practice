@@ -54,6 +54,8 @@ defmodule ChatAppWeb do
       use Phoenix.LiveView,
         layout: {ChatAppWeb.Layouts, :app}
 
+      on_mount ChatAppWeb.OnMounts
+
       unquote(html_helpers())
     end
   end

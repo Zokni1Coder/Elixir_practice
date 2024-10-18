@@ -1,5 +1,6 @@
 defmodule ChatAppWeb.PaginationLive do
   use ChatAppWeb, :live_view
+
   # modul attribute
   @list [
     %{name: "erik", date_of_birth: ~D[2000-09-22]},
@@ -21,6 +22,7 @@ defmodule ChatAppWeb.PaginationLive do
 
   def handle_params(params, _uri, socket) do
     # IO.inspect(socket)
+    # IO.inspect(uri, label: "urija")
     page_from_params = String.to_integer(params["page"] || "1")
     limit_from_params = (params["limit"] && String.to_integer(params["limit"])) || @default_limit
     page = maybe_set_page(page_from_params, limit_from_params)

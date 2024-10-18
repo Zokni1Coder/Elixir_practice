@@ -1,14 +1,15 @@
 <.custom_header
   current_user={@current_user}
   items={[
-    %{path: ~p"/searching", label: "Kereső"},
-    %{path: ~p"/light", label: "Lámpa kapcsoló"},
-    %{path: ~p"/pagination", label: "Paginator + Rendezés"},
-    %{path: ~p"/users/settings", label: "Settings", show: @current_user},
-    %{path: ~p"/users/log_out", label: "Log out", show: @current_user},
-    %{path: ~p"/users/register", label: "Register", show: !@current_user},
-    %{path: ~p"/users/log_in", label: "Log in", show: !@current_user}
+    %{path: "/searching", label: "Kereső"},
+    %{path: "/light", label: "Lámpa kapcsoló"},
+    %{path: "/pagination", label: "Paginator + Rendezés"},
+    %{path: "/users/settings", label: "Settings", show: @current_user},
+    %{path: "/users/log_out", label: "Log out", show: @current_user, method: "delete"},
+    %{path: "/users/register", label: "Register", show: !@current_user},
+    %{path: "/users/log_in", label: "Log in", show: !@current_user}
   ]}
+  current_uri={assigns[:current_uri] || %{}}
 />
 
 <main class="px-4 py-20 sm:px-6 lg:px-8">
