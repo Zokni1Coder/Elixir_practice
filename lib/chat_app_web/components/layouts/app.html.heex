@@ -9,7 +9,7 @@
     %{path: "/users/register", label: "Register", show: !@current_user},
     %{path: "/users/log_in", label: "Log in", show: !@current_user}
   ]}
-  current_uri={assigns[:current_uri] || %{}}
+  current_uri={@current_uri}
 />
 
 <main class="px-4 py-20 sm:px-6 lg:px-8">

@@ -4,6 +4,7 @@ defmodule ChatAppWeb.CustomComponents do
 
   attr :current_user, :any, required: true
   attr :items, :list, required: true
+  attr :current_uri, :map, required: true
 
   @spec custom_header(map()) :: Phoenix.LiveView.Rendered.t()
   def custom_header(assigns) do
@@ -21,7 +22,7 @@ defmodule ChatAppWeb.CustomComponents do
               <.link
                 class={[
                   "text-[0.8125rem] leading-6 font-semibold px-2 py-3 hover:text-zinc-700 inline-block",
-                  if(item.path == Map.get(@current_uri, :path),
+                  if(item.path == @current_uri.path,
                     do: "bg-blue-600 hover:bg-blue-200",
                     else: "hover:bg-blue-400"
                   )

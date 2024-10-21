@@ -28,6 +28,13 @@ defmodule ChatAppWeb.Router do
       live "/searching", SearchingLive
       live "/light", LightLive
       live "/pagination", PaginationLive
+
+      live "/orders", OrderLive.Index, :index
+      live "/orders/new", OrderLive.Index, :new
+      live "/orders/:id/edit", OrderLive.Index, :edit
+
+      live "/orders/:id", OrderLive.Show, :show
+      live "/orders/:id/show/edit", OrderLive.Show, :edit
     end
   end
 
