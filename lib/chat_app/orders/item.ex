@@ -3,7 +3,7 @@ defmodule ChatApp.Orders.Item do
   import Ecto.Changeset
   alias ChatApp.Orders.Item
 
-  embedded_schema do 
+  embedded_schema do
     field :name, :string
     field :price, :float
     field :quantity, :integer

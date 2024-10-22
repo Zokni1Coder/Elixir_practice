@@ -15,8 +15,8 @@
   <:col :let={{_id, order}} label="Name"><%= order.name %></:col>
   <:col :let={{_id, order}} label="Customer"><%= order.customer %></:col>
   <:col :let={{_id, order}} label="Price"><%= order.price %></:col>
-  <:col :let={{_id, order}} label="Status"><%= order.status %></:col>
-  <:col :let={{_id, order}} label="Items"><%= order.items %></:col>
+  <:col :let={{_id, order}} label="Status"><%= order.status %></:col> 
+  <:col :let={{_id, order}} label="Items"><%=  order.items |> Enum.map(fn item -> item.name end) |> Enum.join(", ")  %></:col>
   <:action :let={{_id, order}}>
     <div class="sr-only">
       <.link navigate={~p"/orders/#{order}"}>Show</.link>
