@@ -25,6 +25,7 @@ defmodule ChatAppWeb.Router do
     live_session :mount_current_user,
       on_mount: [{ChatAppWeb.UserAuth, :mount_current_user}] do
       # itt adom hozza a path-eket a weboldal eleresehez
+      live "/chat", ChatLive
       live "/searching", SearchingLive
       live "/light", LightLive
       live "/pagination", PaginationLive
