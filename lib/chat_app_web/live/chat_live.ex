@@ -12,7 +12,11 @@ defmodule ChatAppWeb.ChatLive do
     socket =
       socket
       |> stream(:messages, [])
-      |> assign(form: to_form(%{}, as: "messages"), no_messages?: true)
+      |> assign(
+        form: to_form(%{}, as: "messages"),
+        no_messages?: true,
+        time_zone: get_connect_params(socket)["time_zone"]
+      )
 
     {:ok, socket}
   end
@@ -35,15 +39,18 @@ defmodule ChatAppWeb.ChatLive do
   def handle_info(%{topic: @chat_topic, event: "message", payload: message}, socket) do
     socket =
       socket
+      |> IO.inspect(structs: false)
       |> stream_insert(:messages, %{
         id: UUID.generate(),
         message: message,
         time:
           DateTime.utc_now()
-          |> Timex.Timezone.convert("Europe/Budapest")
-          |> Timex.format!("%Y-%m-%d %H:%M:%S", :strftime)
+          |> Timex.Timezone.convert(socket.assigns.time_zone)
+        # |> Timex.from_now()
+        # |> Timex.format!("%Y-%m-%d %H:%M:%S", :strftime)
       })
       |> assign(no_messages?: false)
+      |> push_event("new_message", %{})
 
     {:noreply, socket}
   end
