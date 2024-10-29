@@ -8,7 +8,12 @@ defmodule ChatAppWeb.ChatLive do
 
   def mount(_params, _session, socket) do
     if connected?(socket), do: Endpoint.subscribe(@chat_topic)
-    socket = socket |> stream(:messages, []) |> assign(form: to_form(%{}, as: "messages"), no_messages?: true)
+
+    socket =
+      socket
+      |> stream(:messages, [])
+      |> assign(form: to_form(%{}, as: "messages"), no_messages?: true)
+
     {:ok, socket}
   end
 
@@ -17,7 +22,7 @@ defmodule ChatAppWeb.ChatLive do
     {:noreply, socket}
   end
 
-  def handle_event("message", %{"messages" => %{"message" => ""}}, socket) , do: {:noreply, socket}
+  def handle_event("message", %{"messages" => %{"message" => ""}}, socket), do: {:noreply, socket}
 
   def handle_event("message", %{"messages" => %{"message" => message}}, socket) do
     socket = assign(socket, form: to_form(%{"message" => ""}, as: "messages"))
@@ -37,7 +42,9 @@ defmodule ChatAppWeb.ChatLive do
           DateTime.utc_now()
           |> Timex.Timezone.convert("Europe/Budapest")
           |> Timex.format!("%Y-%m-%d %H:%M:%S", :strftime)
-      }) |> assign(no_messages?: false)
-      {:noreply, socket}
+      })
+      |> assign(no_messages?: false)
+
+    {:noreply, socket}
   end
 end

@@ -76,13 +76,18 @@ defmodule ChatApp.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.setup": [
+        "cmd --cd assets pnpm install",
+        "tailwind.install --if-missing",
+        "esbuild.install --if-missing"
+      ],
       "assets.build": ["tailwind chat_app", "esbuild chat_app"],
       "assets.deploy": [
         "tailwind chat_app --minify",
         "esbuild chat_app --minify",
         "phx.digest"
-      ]
+      ],
+      "format.all": ["format", "cmd --cd assets pnpm run format"]
     ]
   end
 end

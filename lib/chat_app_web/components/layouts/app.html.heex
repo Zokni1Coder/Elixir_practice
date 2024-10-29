@@ -1,24 +1,24 @@
 <div class="h-screen flex flex-col">
-<.custom_header
-  current_user={@current_user}
-  items={[
-    %{path: "/chat", label: "Chat"},
-    %{path: "/orders", label: "Dynamic Form"},
-    %{path: "/searching", label: "Search"},
-    %{path: "/light", label: "Light switch"},
-    %{path: "/pagination", label: "Paginator + Sorting"},
-    %{path: "/users/settings", label: "Settings", show: @current_user},
-    %{path: "/users/log_out", label: "Log out", show: @current_user, method: "delete"},
-    %{path: "/users/register", label: "Register", show: !@current_user},
-    %{path: "/users/log_in", label: "Log in", show: !@current_user}
-  ]}
-  current_uri={@current_uri}
-/>
+  <.custom_header
+    current_user={@current_user}
+    items={[
+      %{path: "/chat", label: "Chat"},
+      %{path: "/orders", label: "Dynamic Form"},
+      %{path: "/searching", label: "Search"},
+      %{path: "/light", label: "Light switch"},
+      %{path: "/pagination", label: "Paginator + Sorting"},
+      %{path: "/users/settings", label: "Settings", show: @current_user},
+      %{path: "/users/log_out", label: "Log out", show: @current_user, method: "delete"},
+      %{path: "/users/register", label: "Register", show: !@current_user},
+      %{path: "/users/log_in", label: "Log in", show: !@current_user}
+    ]}
+    current_uri={@current_uri}
+  />
 
-<main class="p-4 flex-1 overflow-hidden pb-10">
-  <div class="mx-auto max-w-2xl h-full">
-    <.flash_group flash={@flash} />
-    <%= @inner_content %>
-  </div>
-</main>
+  <main class="p-4 flex-1 overflow-hidden pb-10">
+    <div class="mx-auto max-w-2xl h-full">
+      <.flash_group flash={@flash} />
+      <%= @inner_content %>
+    </div>
+  </main>
 </div>
