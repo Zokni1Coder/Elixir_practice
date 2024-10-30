@@ -8,7 +8,14 @@
         class="flex justify-between gap-3 bg-blue-100 p-3 rounded-lg shadow-md items-end animate-[fade-in_1s_ease-out]"
       >
         <p class="text-gray-700"><%= message %></p>
-        <small class="text-gray-400"><%= time %></small>
+        <small
+          id={"time-#{dom_id}"}
+          class="text-gray-400"
+          phx-hook="TimeFormatter"
+          data-time={time}
+        >
+          <%= time %>
+        </small>
       </div>
     </div>
   </div>

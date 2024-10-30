@@ -44,7 +44,9 @@ defmodule ChatAppWeb.ChatLive do
         id: UUID.generate(),
         message: message,
         time:
-          DateTime.utc_now()
+          :second
+          |> DateTime.utc_now()
+          # |> Timex.shift(days: +1)
           |> Timex.Timezone.convert(socket.assigns.time_zone)
         # |> Timex.from_now()
         # |> Timex.format!("%Y-%m-%d %H:%M:%S", :strftime)
