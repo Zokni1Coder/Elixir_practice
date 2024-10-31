@@ -17,7 +17,7 @@ defmodule ChatAppWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import ChatAppWeb.Gettext
+  use Gettext, backend: ChatAppWeb.Gettext
 
   @doc """
   Renders a modal.

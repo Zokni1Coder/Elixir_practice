@@ -43,7 +43,7 @@ defmodule ChatAppWeb do
         layouts: [html: ChatAppWeb.Layouts]
 
       import Plug.Conn
-      import ChatAppWeb.Gettext
+      use Gettext, backend: ChatAppWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -87,7 +87,7 @@ defmodule ChatAppWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import ChatAppWeb.CoreComponents
-      import ChatAppWeb.Gettext
+      use Gettext, backend: ChatAppWeb.Gettext
       import ChatAppWeb.CustomComponents
 
       # Shortcut for generating JS commands
