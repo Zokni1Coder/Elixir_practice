@@ -3,17 +3,20 @@ defmodule ChatAppWeb.Live.ChartComponent do
 
   @backgrounds ["bg-red-400", "bg-blue-400", "bg-green-400"]
 
-  def mount(socket) do
-    # socket = assign(socket, get_rnd_columns(socket.assigns[:column_num], connected?(socket)))
-    {:ok, socket}
-  end
-
   def update(assigns, socket) do
-    send_update_after(
-      __MODULE__,
-      get_rnd_columns(socket.assigns[:column_num]) ++ [id: "chart_live_component1"],
-      1000
-    )
+    rnd_columns =
+      if connected?(socket),
+        do:
+          Enum.reduce(
+            1..assigns.column_num,
+            %{},
+            &Map.put(&2, :"col#{&1}", %{
+              value: Enum.random(0..100),
+              color:
+                assigns |> Map.get(:"col#{&1}", %{}) |> Map.get(:color, Enum.random(@backgrounds))
+            })
+          ),
+        else: %{}
 
     socket = assign(socket, assigns)
     {:ok, socket}
@@ -21,6 +24,7 @@ defmodule ChatAppWeb.Live.ChartComponent do
 
   def render(assigns) do
     assigns = Map.put(assigns, :backgrounds, @backgrounds)
+
     ~H"""
     <div class="flex items-end h-52 w-full max-w-md gap-1">
       <div
@@ -34,8 +38,6 @@ defmodule ChatAppWeb.Live.ChartComponent do
   end
 
   defp rnd(true), do: Enum.random(0..100)
-
-  defp rnd(_connected?), do: 0
 
   defp get_rnd_columns(column_num, connected? \\ true)
 
