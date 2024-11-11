@@ -110,6 +110,7 @@ defmodule ChatAppWeb.UserSettingsLive do
       socket.assigns.current_user
       |> Accounts.change_user_email(user_params)
       |> Map.put(:action, :validate)
+      # %{..., action: :validate}
       |> to_form()
 
     {:noreply, assign(socket, email_form: email_form, email_form_current_password: password)}

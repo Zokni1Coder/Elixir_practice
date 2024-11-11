@@ -26,17 +26,24 @@ defmodule ChatAppWeb.Router do
       on_mount: [{ChatAppWeb.UserAuth, :mount_current_user}] do
       # itt adom hozza a path-eket a weboldal eleresehez
       live "/chat", ChatLive
-      live "/searching", SearchingLive
       live "/light", LightLive
       live "/pagination", PaginationLive
       live "/live_component", LiveComponentLive
 
-      live "/orders", OrderLive.Index, :index
-      live "/orders/new", OrderLive.Index, :new
-      live "/orders/:id/edit", OrderLive.Index, :edit
+      scope "/orders", OrderLive do
+        live "/", Index, :index
+        live "/new", Index, :new
+        live "/:id/edit", Index, :edit
 
-      live "/orders/:id", OrderLive.Show, :show
-      live "/orders/:id/show/edit", OrderLive.Show, :edit
+        live "/:id", Show, :show
+        live "/:id/show/edit", Show, :edit
+      end
+    end
+
+    live_session :mount_current_user1,
+      on_mount: [{ChatAppWeb.UserAuth, :mount_current_user}] do
+      # itt adom hozza a path-eket a weboldal eleresehez
+      live "/searching", SearchingLive
     end
   end
 
