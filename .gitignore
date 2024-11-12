@@ -37,3 +37,5 @@ npm-debug.log
 .pnpm-store
 
 /config/*.secret.exs
+
+priv/static/uploads
