@@ -18,10 +18,33 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import 'phoenix_html';
 // Establish Phoenix Socket and LiveView configuration.
-import { Socket } from 'phoenix';
+import { Socket, Presence } from 'phoenix';
 import { LiveSocket } from 'phoenix_live_view';
 import topbar from 'topbar';
 import Hooks from './hooks';
+
+// let socket = new Socket('/socket', { params: { token: window.userToken } });
+// let channel = socket.channel('room:lobby', {
+//   name: window.location.search.split('=')[1]
+// });
+// let presence = new Presence(channel);
+
+// function renderOnlineUsers(presence) {
+//   let response = '';
+
+//   presence.list((id, { metas: [first, ...rest] }) => {
+//     let count = rest.length + 1;
+//     response += `<br>${id} (count: ${count})</br>`;
+//   });
+
+//   document.getElementById('presence-tracking').innerHTML = response;
+// }
+
+// socket.connect();
+
+// presence.onSync(() => renderOnlineUsers(presence));
+
+// channel.join();
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")

@@ -19,7 +19,7 @@
         phx-value-ref={entry.ref}
         aria-label="cancel"
       >
-        &times;
+        <.icon name="hero-x-mark" class="w-5 h-5" />
       </button>
 
       <%= for err <- upload_errors(@uploads.profile, entry) do %>
@@ -33,4 +33,4 @@
   <% end %>
 </section>
 
-<img :for={profile_path <- @uploaded_profiles} src={profile_path}>
+<img :for={profile_path <- @uploaded_profiles} src={profile_path} />

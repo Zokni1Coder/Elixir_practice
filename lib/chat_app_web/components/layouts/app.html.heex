@@ -2,6 +2,7 @@
   <.custom_header
     current_user={@current_user}
     items={[
+      %{path: "/presence_tracking/#{Map.get(@current_user || %{}, :email, "kandur2000@mesc.itm")}", label: "Presence Tracking Live"},
       %{path: "/upload", label: "Upload"},
       %{path: "/live_component", label: "Live Component"},
       %{path: "/chat", label: "Chat"},

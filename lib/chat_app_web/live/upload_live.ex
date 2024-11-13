@@ -19,11 +19,14 @@ defmodule ChatAppWeb.UploadLive do
   def handle_event("save", _params, socket) do
     uploaded_profiles =
       consume_uploaded_entries(socket, :profile, fn %{path: path}, _entry ->
-        dest = Path.join(Application.app_dir(:chat_app, "priv/static/uploads"), Path.basename(path))
+        dest =
+          Path.join(Application.app_dir(:chat_app, "priv/static/uploads"), Path.basename(path))
+
         File.cp!(path, dest)
         {:ok, ~p"/uploads/#{Path.basename(dest)}"}
       end)
-      # IO.inspect(uploaded_profiles)
+
+    # IO.inspect(uploaded_profiles)
     {:noreply, update(socket, :uploaded_profiles, &(&1 ++ uploaded_profiles))}
   end
 
