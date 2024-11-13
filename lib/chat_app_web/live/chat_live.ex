@@ -39,7 +39,6 @@ defmodule ChatAppWeb.ChatLive do
   def handle_info(%{topic: @chat_topic, event: "message", payload: message}, socket) do
     socket =
       socket
-      |> IO.inspect(structs: false)
       |> stream_insert(:messages, %{
         id: UUID.generate(),
         message: message,
